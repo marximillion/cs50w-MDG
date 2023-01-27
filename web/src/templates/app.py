@@ -1,0 +1,30 @@
+import datetime
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    now = datetime.datetime.now()
+    new_year = now.month == 1 and now.day == 1
+    return render_template("index.html", new_year=new_year, now=now)
+
+
+@app.route("/names")
+def names():
+    names = ["Alice", "Bob", "Combucha", "Donday"]
+    return render_template("names.html", names=names)
+
+
+@app.route("/bye")
+def bye():
+    headline = "Goodbye world!"
+    return render_template("index.html", headline=headline)
+
+
+@app.route("/<string:name>")
+def hello(name):
+    name = name.upper()
+    return f"Hello, {name}!"

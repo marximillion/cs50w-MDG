@@ -1,6 +1,6 @@
 import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -24,7 +24,13 @@ def bye():
     return render_template("index.html", headline=headline)
 
 
-@app.route("/<string:name>")
+@app.route("/hello", methods=["POST"])
+def hello():
+    name = request.form.get("name")
+    return render_template("hello.html", name=name)
+
+
+""" @app.route("/<string:name>")
 def hello(name):
     name = name.upper()
-    return f"Hello, {name}!"
+    return f"Hello, {name}!" """
